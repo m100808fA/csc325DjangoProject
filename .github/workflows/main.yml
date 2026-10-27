@@ -54,6 +54,6 @@ jobs:
 
     steps:
       - name: Deploy Application
-      run: |
-        echo "Deploying the application..."
-        echo "Deployment steps would go here."
+        run: |
+          echo "Deploying the application..."
+          echo "Deployment steps would go here."
