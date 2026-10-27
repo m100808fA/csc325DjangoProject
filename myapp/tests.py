@@ -25,7 +25,10 @@ class MyAppViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertJSONEqual(
             str(response.content, encoding='utf8'),
-            {"message": "Hello, World!", "description": "This is the home page of my Django application."}
+            {"message": "Hello, World!", 
+             "description": "This is the home page of my Django application.",
+             "version": "1.0.1"
+            }
         )
 
     def test_api_about_view_returns_success_and_expected_content(self):
