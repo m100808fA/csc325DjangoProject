@@ -1,34 +1,44 @@
+from django.apps import apps
 from django.test import TestCase
+from django.urls import reverse
 
-# test if the home view returns a 200 status code
-class HomeViewTest(TestCase):
-    def test_home_view_status_code(self):
-        response = self.client.get('/')
+# add tests for the views and models here
+
+class MyAppViewTests(TestCase):
+    def test_home_page_returns_success_and_expected_content(self):
+        response = self.client.get(reverse('home'))
+
         self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Hello, World!")
+        self.assertContains(response, "home page")
 
-#test if the about view returns a 200 status code
-class AboutViewTest(TestCase):
-    def test_about_view_status_code(self):
-        response = self.client.get('/about/')
+    def test_about_page_returns_success_and_expected_content(self):
+        response = self.client.get(reverse('about'))
+
         self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "About")
+        self.assertContains(response, "about page")
 
+    def test_api_home_view_returns_success_and_expected_content(self):
+        response = self.client.get(reverse('api_home'))
 
-#test if the home view returns the correct API endpoint response
-class ApiHomeViewTest(TestCase):
-    def test_api_home_view_response(self):
-        response = self.client.get('/api/home/')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json(), {
-            "message": "Hello, World!",
-            "description": "This is the home page of my Django application.",
-        })
+        self.assertJSONEqual(
+            str(response.content, encoding='utf8'),
+            {"message": "Hello, World!", "description": "This is the home page of my Django application."}
+        )
 
-#test if the about view returns the correct API endpoint response
-class ApiAboutViewTest(TestCase):
-    def test_api_about_view_response(self):
-        response = self.client.get('/api/about/')
+    def test_api_about_view_returns_success_and_expected_content(self):
+        response = self.client.get(reverse('api_about'))
+
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json(), {
-            "message": "About",
-            "description": "This is the about page of my Django application.",
-        })
+        self.assertJSONEqual(
+            str(response.content, encoding='utf8'),
+            {"message": "About", "description": "This is the about page of my Django application."}
+        )
+
+class MyAppModelTests(TestCase):
+    def test_app_config_is_registered(self):
+        app_config = apps.get_app_config('myapp')
+
+        self.assertEqual(app_config.name, 'myapp')
