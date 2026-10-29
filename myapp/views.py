@@ -12,7 +12,8 @@ def api_home(request):
     data = {
         "message": "Hello, World!",
         "description": "This is the home page of my Django application.",
-        "version": "1.0.1"
+        "version": "1.0.1",
+        "date": "2026-10-28"
     }
     return JsonResponse(data)
 
