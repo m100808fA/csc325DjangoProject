@@ -38,7 +38,10 @@ class MyAppViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertJSONEqual(
             str(response.content, encoding='utf8'),
-            {"message": "About", "description": "This is the about page of my Django application."}
+            {"message": "About", 
+             "description": "This is the about page of my Django application.",
+             "writer": "Muhammad Faseeh"
+            }
         )
 
 class MyAppModelTests(TestCase):
