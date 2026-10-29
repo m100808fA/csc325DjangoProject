@@ -22,6 +22,7 @@ def api_about(request):
     data = {
         "message": "About",
         "description": "This is the about page of my Django application.",
+        "writer": "Muhammad Faseeh"
     }
     return JsonResponse(data)
 
